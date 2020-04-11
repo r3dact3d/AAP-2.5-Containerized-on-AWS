@@ -62,15 +62,6 @@ resource "aws_security_group" "php_security_group" {
   }
 }
 
-resource "aws_security_group_rule" "ssh_ingress_access" {
-  type              = "ingress"
-  from_port         = 22
-  to_port           = 22
-  protocol          = "tcp"
-  cidr_blocks       = ["${var.MY_IP}"]
-  security_group_id = aws_security_group.php_security_group.id
-}
-
 resource "aws_security_group_rule" "http_ingress_access" {
   type              = "ingress"
   from_port         = 80
@@ -93,7 +84,6 @@ resource "aws_instance" "php_instance" {
   instance_type               = "t2.nano"
   vpc_security_group_ids      = [aws_security_group.php_security_group.id]
   associate_public_ip_address = true
-  key_name                    = "keyboss"
   user_data                   = file("user_data.txt")
   ami                         = "ami-0aba0ea987d0d7530"
   availability_zone           = "us-east-1a"
