@@ -1,0 +1,9 @@
+#!/bin/bash
+sudo yum install -y php70
+echo '''
+<?php
+// flux7.php
+echo "<p>Welcome to Flux7!</p>";
+?>
+''' >> /home/ec2-user/flux7.php
+sudo php -S 0.0.0.0:80 -t /home/ec2-user flux7.php
