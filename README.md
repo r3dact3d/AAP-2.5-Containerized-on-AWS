@@ -11,7 +11,7 @@
 
 ## Architecture Diagram
 
-![Architecture Diagram](./Flux7 PHP Simple.png)
+![Architecture Diagram](Simple.png)
 
 ## Implementation
 ### Assumptions
