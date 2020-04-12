@@ -11,7 +11,7 @@
 
 ## Architecture Diagram
 
-![Architecture Diagram](Simple.png)
+![Architecture Diagram](simple.png)
 
 ## Implementation
 ### Assumptions
