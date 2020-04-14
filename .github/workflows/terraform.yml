@@ -34,6 +34,5 @@ jobs:
         with:
           tf_actions_version: 0.12.13
           tf_actions_subcommand: 'plan'
-          args: '-var="AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}" -var="AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}"'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
