@@ -42,4 +42,10 @@
 
 ### Pull-Request Validation
 
+- Github actions performs terraform steps to validate PR, before it is eligible for merge to master.
+  - terraform fmt
+  - terraform init
+  - terraform validate
+  - terraform plan
+
 ![Terraform GitHub Actions](https://github.com/r3dact3d/Trial-Project/workflows/Terraform%20GitHub%20Actions/badge.svg?event=pull_request)
