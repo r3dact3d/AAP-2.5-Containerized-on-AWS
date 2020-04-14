@@ -39,3 +39,5 @@
 4. Access landing page http://<public_ip>/flux7.php
 5. Tear down procedure
   `terraform destroy -auto-approve`
+
+### Pull-Request Validation
