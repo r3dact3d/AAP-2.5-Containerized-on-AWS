@@ -28,6 +28,8 @@
 2. Deploy
   - Change to the working directory
     `cd Trial-Project/`
+  - Initialize with AWS Provider
+    `terraform init`
   - Edit variables.tf and update variables with access keys
   - Create and review plan
     `terraform plan`
