@@ -47,5 +47,3 @@
   - terraform init
   - terraform validate
   - terraform plan
-
-![Terraform GitHub Actions](https://github.com/r3dact3d/Trial-Project/workflows/Terraform%20GitHub%20Actions/badge.svg)
