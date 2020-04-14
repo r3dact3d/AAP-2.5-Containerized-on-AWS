@@ -41,3 +41,5 @@
   `terraform destroy -auto-approve`
 
 ### Pull-Request Validation
+
+![Terraform GitHub Actions](https://github.com/r3dact3d/Trial-Project/workflows/Terraform%20GitHub%20Actions/badge.svg?event=pull_request)
