@@ -1,0 +1,26 @@
+name: 'Ansible GitHub Actions'
+on:
+  workflow_dispatch:
+
+jobs:
+  Ansible:
+    name: 'Ansible'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v3
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+
+      - name: Run ansible playbook
+        run: |
+          ansible-playbook main.yaml
