@@ -1,5 +1,18 @@
 # Resource file 
 
+terraform {
+  required_providers {
+    ansible = {
+      version = "~> 1.1.0"
+      source  = "terraform-ansible.com/ansibleprovider/ansible
+    }
+    aws = {
+      source = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+}
+
 resource "aws_vpc" "php_vpc" {
   cidr_block           = "10.1.0.0/16"
   enable_dns_hostnames = "true"

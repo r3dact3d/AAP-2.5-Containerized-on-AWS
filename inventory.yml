@@ -1,0 +1,2 @@
+- name: Create an inventory from state file in current directory
+  plugin: cloud.terraform.terraform_provider
