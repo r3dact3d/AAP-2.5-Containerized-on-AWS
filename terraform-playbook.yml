@@ -19,6 +19,7 @@
       amazon.aws.s3_bucket:
         name: "{{ s3_bucket_name }}"
         state: present
+        region: "{{ region }}"
         public_access:
           block_public_acls: true
           ignore_public_acls: true
