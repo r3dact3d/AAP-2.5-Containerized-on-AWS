@@ -23,8 +23,8 @@ jobs:
 
       - name: Install Python Dependencies
         run: |
-          ansible-inventory -i state-file-inventory.yml --graph --va
-          ansible-inventory -i provider-inventory.yml --graph --va
+          ansible-inventory -i state-file-inventory.yml --graph
+          ansible-inventory -i provider-inventory.yml --graph
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt --user; fi
 
@@ -35,5 +35,5 @@ jobs:
           export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           ansible-playbook terraform-playbook.yml \
           -e "ansible_python_interpreter=$(which python3) AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY }} AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" -vvv
-          ansible-inventory -i state-file-inventory.yml --graph --va
-          ansible-inventory -i provider-inventory.yml --graph --va
+          ansible-inventory -i state-file-inventory.yml --graph
+          ansible-inventory -i provider-inventory.yml --graph
