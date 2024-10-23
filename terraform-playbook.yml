@@ -1,0 +1,18 @@
+---
+- name: Deploy service using terraform collection.
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  collections:
+    - cloud.terraform
+  tasks:
+    - name: Apply terraform 
+      cloud.terraform.terraform:
+        project_path: "{{ project_dir }}"
+        state: present
+        force_init: true
+        backend_config:
+          region: us-east-2
+          bucket: terraform-state-bucket
+          key: terraform.tfstate
+

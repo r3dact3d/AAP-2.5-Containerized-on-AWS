@@ -21,4 +21,6 @@ jobs:
 
       - name: Run ansible playbook
         run: |
-          ansible-playbook main.yaml
+          ansible-galaxy collection install -r collections/requirements.yml
+          ansible-playbook terraform-playbook.yml \
+          -e ""ansible_python_interpreter=$(which python3)"
