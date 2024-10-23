@@ -18,6 +18,12 @@ provider "aws" {
   region = "us-east-2"
 }
 
+# Add key for ssh connection
+resource "aws_key_pair" "my_key" {
+  key_name   = "my_key"
+  public_key = "my_public_key_value"
+}
+
 resource "aws_vpc" "php_vpc" {
   cidr_block           = "10.1.0.0/16"
   enable_dns_hostnames = "true"
@@ -116,6 +122,7 @@ resource "aws_instance" "php_instance" {
   instance_type               = "t2.nano"
   vpc_security_group_ids      = [aws_security_group.php_security_group.id]
   associate_public_ip_address = true
+  key_name        = aws_key_pair.my_key.key_name
   user_data                   = file("user_data.txt")
   ami                         = data.aws_ami.ubuntu.id
   availability_zone           = "us-east-2a"
@@ -124,5 +131,16 @@ resource "aws_instance" "php_instance" {
   tags = {
     Name      = "php-webserver1"
     Terraform = "true"
+  }
+}
+
+# Add created ec2 instance to ansible inventory
+resource "ansible_host" "php_instance" {
+  name   = aws_instance.php_instance.public_dns
+  groups = ["webserver"]
+  variables = {
+    ansible_user                 = "ubuntu",
+    ansible_ssh_private_key_file = "~/.ssh/id_rsa",
+    ansible_python_interpreter   = "/usr/bin/python3",
   }
 }
