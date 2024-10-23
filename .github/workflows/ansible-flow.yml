@@ -28,7 +28,9 @@ jobs:
 
       - name: Run ansible playbook
         run: |
+          export AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}
+          export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           ansible-galaxy collection install -r collections/requirements.yml
           ansible-playbook terraform-playbook.yml \
-          -e "ansible_python_interpreter=$(which python3) AWS_ACCESS_KEY={{ secrets.AWS_ACCESS_KEY }} AWS_SECRET_ACCESS_KEY={{ secrets.AWS_SECRET_ACCESS_KEY }}"
+          -e "ansible_python_interpreter=$(which python3)"
           
