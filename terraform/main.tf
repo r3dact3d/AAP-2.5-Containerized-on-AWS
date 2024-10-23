@@ -107,7 +107,7 @@ resource "aws_security_group_rule" "ssh_ingress_access" {
   type              = "ingress"
   from_port         = 22
   to_port           = 22
-  protocol          = "ssh"
+  protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.php_security_group.id
 }
