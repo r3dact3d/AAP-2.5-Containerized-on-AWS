@@ -36,6 +36,21 @@
           key: "terraform.tfstate"
       register: terraform_output
 
+    - name: Apply terraform 
+      cloud.terraform.terraform:
+        project_path: 'terraform/'
+        state: absent
+        force_init: true
+        backend_config:
+          region: "{{ region }}"
+          bucket: "{{ s3_bucket_name }}"
+          key: "terraform.tfstate"
+      register: terraform_output
+      tags:
+       - never
+       - remove
+
+
     - name: Show Terraform output
       debug:
         var: terraform_output

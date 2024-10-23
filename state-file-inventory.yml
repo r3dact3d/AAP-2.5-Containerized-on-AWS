@@ -1,13 +1,12 @@
 ---
-- name: Example using constructed features to set ansible_host
-  plugin: cloud.terraform.terraform_state
-  backend_type: s3
-  backend_config:
-    region: us-east-2
-    key: terraform.tfstate
-    bucket: tfstate-bucket-blinker19
-  compose: 
-    ansible_host: public_ip
-  keyed_groups:
-    - key: instance_state
-      prefix: state
+plugin: cloud.terraform.terraform_state
+backend_type: s3
+backend_config:
+  region: us-east-2
+  key: terraform.tfstate
+  bucket: tfstate-bucket-blinker19
+compose: 
+  ansible_host: public_ip
+keyed_groups:
+  - key: instance_state
+    prefix: state

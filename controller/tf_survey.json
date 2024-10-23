@@ -1,0 +1,54 @@
+{
+    "name": "Terraform Survey",
+    "description": "Terraform Survey",
+    "spec": [
+      {
+        "question_description": "Name for Instance",
+        "min": 0,
+        "default": "webserver1a",
+        "max": 128,
+        "required": true,
+        "choices": "",
+        "new_question": true,
+        "variable": "instance_name",
+        "question_name": "Please provide a name for your insance",
+        "type": "text"
+      },
+      {
+        "question_description": "Options for instance types",
+        "min": 0,
+        "default": "yes",
+        "max": 0,
+        "required": true,
+        "choices": "t2.micro,t2.large,t2.xlarge",
+        "new_question": true,
+        "variable": "instance_type",
+        "question_name": "Please select a type of instance",
+        "type": "multiplechoice"
+      },
+      {
+        "question_description": "Name of Security group",
+        "min": 0,
+        "default": "",
+        "max": 128,
+        "required": true,
+        "choices": "",
+        "new_question": true,
+        "variable": "instance_sec",
+        "question_name": "Please provide a name for your AWS Security Group",
+        "type": "text"
+      },
+      {
+        "question_description": "Build for Git",
+        "min": 0,
+        "default": "",
+        "max": 128,
+        "required": true,
+        "choices": "",
+        "new_question": true,
+        "variable": "instruqt_tf_build",
+        "question_name": "Please provide a name for your Terraform Build",
+        "type": "text"
+      }
+    ]
+  }

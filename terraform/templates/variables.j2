@@ -1,0 +1,13 @@
+variable "aws_security_group" {
+  default = "{{ instance_sec }}" # AWS Security Group name
+}
+variable "instance_name" {
+  default = "{{ instance_name }}" # AWS Name of instance
+}
+variable "instance_type" {
+  default = "{{ instance_type }}" # AWS Instance type
+}
+variable "private_ip_address" {
+  type    = string
+  default = "10.20.20.120"
+}

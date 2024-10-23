@@ -47,3 +47,8 @@
   - terraform init
   - terraform validate
   - terraform plan
+
+https://github.com/ansible-collections/cloud.terraform/tree/main
+
+
+https://developer.hashicorp.com/terraform/tutorials/automation/github-actions
