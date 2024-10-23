@@ -29,6 +29,7 @@
       cloud.terraform.terraform:
         project_path: 'terraform/'
         state: present
+        force_init: true
         backend_config:
           region: "{{ region }}"
           bucket: "{{ s3_bucket_name }}"
