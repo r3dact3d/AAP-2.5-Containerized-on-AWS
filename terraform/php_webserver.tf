@@ -105,17 +105,17 @@ resource "aws_security_group_rule" "egress_access" {
 }
 
 # Set ami for ec2 instance
-data "aws_ami" "ubuntu" {
+data "aws_ami" "rhel" {
   most_recent = true
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["RHEL-9.4.0_HVM*"]
   }
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-  owners = ["099720109477"]
+  owners = ["309956199498"]
 }
 
 resource "aws_instance" "php_instance" {
@@ -124,7 +124,7 @@ resource "aws_instance" "php_instance" {
   associate_public_ip_address = true
   key_name        = aws_key_pair.my_key.key_name
   user_data                   = file("user_data.txt")
-  ami                         = data.aws_ami.ubuntu.id
+  ami                         = data.aws_ami.rhel.id
   availability_zone           = "us-east-2a"
   subnet_id                   = aws_subnet.php_subnet.id
 
@@ -139,7 +139,7 @@ resource "ansible_host" "php_instance" {
   name   = aws_instance.php_instance.public_dns
   groups = ["webserver"]
   variables = {
-    ansible_user                 = "ubuntu",
+    ansible_user                 = "ec2-user",
     ansible_ssh_private_key_file = "~/.ssh/id_rsa",
     ansible_python_interpreter   = "/usr/bin/python3",
   }
