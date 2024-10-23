@@ -144,3 +144,5 @@ resource "ansible_host" "php_instance" {
     ansible_python_interpreter   = "/usr/bin/python3",
   }
 }
+
+
