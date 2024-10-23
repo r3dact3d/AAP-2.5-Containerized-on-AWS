@@ -98,12 +98,26 @@ resource "aws_security_group_rule" "egress_access" {
   security_group_id = aws_security_group.php_security_group.id
 }
 
+# Set ami for ec2 instance
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+  owners = ["099720109477"]
+}
+
 resource "aws_instance" "php_instance" {
   instance_type               = "t2.nano"
   vpc_security_group_ids      = [aws_security_group.php_security_group.id]
   associate_public_ip_address = true
   user_data                   = file("user_data.txt")
-  ami                         = "ami-0aba0ea987d0d7530"
+  ami                         = data.aws_ami.ubuntu.id
   availability_zone           = "us-east-2a"
   subnet_id                   = aws_subnet.php_subnet.id
 
