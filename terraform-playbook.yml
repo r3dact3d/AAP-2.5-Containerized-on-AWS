@@ -9,12 +9,13 @@
   tasks:
     - name: Apply terraform 
       cloud.terraform.terraform:
-        project_path: terraform
+        project_path: 'terraform/'
         state: present
+        force_init: true
         backend_config:
-          region: us-east-2
-          bucket: terraform-state-bucket
-          key: terraform.tfstate
+          region: "us-east-2"
+          bucket: "terraform-state-bucket"
+          key: "terraform.tfstate"
       register: terraform_output
 
     - name: Show Terraform output
