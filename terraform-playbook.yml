@@ -5,14 +5,18 @@
   gather_facts: false
   collections:
     - cloud.terraform
+    
   tasks:
     - name: Apply terraform 
       cloud.terraform.terraform:
         project_path: "{{ project_dir }}"
         state: present
-        force_init: true
         backend_config:
           region: us-east-2
           bucket: terraform-state-bucket
           key: terraform.tfstate
+      register: terraform_output
 
+    - name: Show Terraform output
+      debug:
+        var: terraform_output
