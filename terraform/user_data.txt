@@ -3,7 +3,7 @@ sudo yum install -y php
 echo '''
 <?php
 // blinker19.php
-echo "<p>Welcome Blinker19!</p>";
+echo "<p>Welcome to Blinker19!</p>";
 ?>
 ''' >> /home/ec2-user/blinker19.php
 sudo php -S 0.0.0.0:80 -t /home/ec2-user blinker19.php
