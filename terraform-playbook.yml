@@ -9,7 +9,7 @@
   tasks:
     - name: Apply terraform 
       cloud.terraform.terraform:
-        project_path: "{{ project_dir }}"
+        project_path: terraform
         state: present
         backend_config:
           region: us-east-2
