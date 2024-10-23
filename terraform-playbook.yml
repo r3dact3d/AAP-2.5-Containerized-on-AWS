@@ -9,6 +9,21 @@
     - cloud.terraform
     
   tasks:
+
+    - name: Check if S3 bucket exists
+      amazon.aws.s3_bucket_info:
+        name: "{{ s3_bucket_name }}"
+      register: s3_bucket_info
+
+    - name: Create S3 bucket if it doesn't exist
+      amazon.aws.s3_bucket:
+        name: "{{ s3_bucket_name }}"
+        state: present
+        public_access:
+          block_public_acls: true
+          ignore_public_acls: true
+      when: s3_bucket_info.buckets is not defined
+
     - name: Apply terraform 
       cloud.terraform.terraform:
         project_path: 'terraform/'
