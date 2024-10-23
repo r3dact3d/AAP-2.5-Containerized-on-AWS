@@ -14,6 +14,9 @@ terraform {
   required_version = ">= 1.2.0"
 }
 
+provider "aws {
+  region = "us-east-2"
+}
 
 resource "aws_vpc" "php_vpc" {
   cidr_block           = "10.1.0.0/16"
