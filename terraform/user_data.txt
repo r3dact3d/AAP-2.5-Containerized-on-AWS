@@ -1,9 +1,9 @@
 #!/bin/bash
-sudo yum install -y php70
+sudo yum install -y php
 echo '''
 <?php
-// flux7.php
-echo "<p>Welcome to Flux7!</p>";
+// blinker19.php
+echo "<p>Welcome Blinker19!</p>";
 ?>
-''' >> /home/ec2-user/flux7.php
-sudo php -S 0.0.0.0:80 -t /home/ec2-user flux7.php
+''' >> /home/ec2-user/blinker19.php
+sudo php -S 0.0.0.0:80 -t /home/ec2-user blinker19.php
