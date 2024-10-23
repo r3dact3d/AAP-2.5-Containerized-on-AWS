@@ -127,7 +127,7 @@ data "aws_ami" "rhel" {
 }
 
 resource "aws_instance" "php_instance" {
-  instance_type               = "t2.nano"
+  instance_type               = "t2.xlarge"
   vpc_security_group_ids      = [aws_security_group.php_security_group.id]
   associate_public_ip_address = true
   key_name        = aws_key_pair.my_key.key_name
