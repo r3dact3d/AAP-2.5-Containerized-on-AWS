@@ -53,7 +53,7 @@ resource "aws_route_table" "php_pub_igw" {
 }
 
 resource "aws_subnet" "php_subnet" {
-  availability_zone       = "us-east-1a"
+  availability_zone       = "us-east-2a"
   cidr_block              = "10.1.0.0/24"
   map_public_ip_on_launch = "true"
   vpc_id                  = aws_vpc.php_vpc.id
@@ -104,7 +104,7 @@ resource "aws_instance" "php_instance" {
   associate_public_ip_address = true
   user_data                   = file("user_data.txt")
   ami                         = "ami-0aba0ea987d0d7530"
-  availability_zone           = "us-east-1a"
+  availability_zone           = "us-east-2a"
   subnet_id                   = aws_subnet.php_subnet.id
 
   tags = {
