@@ -103,6 +103,15 @@ resource "aws_security_group_rule" "http_ingress_access" {
   security_group_id = aws_security_group.php_security_group.id
 }
 
+resource "aws_security_group_rule" "ssh_ingress_access" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "ssh"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.php_security_group.id
+}
+
 resource "aws_security_group_rule" "egress_access" {
   type              = "egress"
   from_port         = 0
