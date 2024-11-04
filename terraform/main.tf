@@ -112,6 +112,51 @@ resource "aws_security_group_rule" "ssh_ingress_access" {
   security_group_id = aws_security_group.aap_security_group.id
 }
 
+resource "aws_security_group_rule" "postgresql_ingress_access" {
+  type              = "ingress"
+  from_port         = 5432
+  to_port           = 5432
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.aap_security_group.id
+}
+
+resource "aws_security_group_rule" "redis_ingress_access" {
+  type              = "ingress"
+  from_port         = 6379
+  to_port           = 6379
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.aap_security_group.id
+}
+
+resource "aws_security_group_rule" "secure_ingress_access" {
+  type              = "ingress"
+  from_port         = 8433
+  to_port           = 8433
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.aap_security_group.id
+}
+
+resource "aws_security_group_rule" "https_ingress_access" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.aap_security_group.id
+}
+
+resource "aws_security_group_rule" "grpc_ingress_access" {
+  type              = "ingress"
+  from_port         = 50051
+  to_port           = 50051
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.aap_security_group.id
+}
+
 resource "aws_security_group_rule" "egress_access" {
   type              = "egress"
   from_port         = 0
