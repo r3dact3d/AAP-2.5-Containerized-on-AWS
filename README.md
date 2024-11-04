@@ -3,10 +3,10 @@
 
 ## Summary
 
-- Linux EC2 instance is running on AWS and is publicly accessible.
+- RHEL EC2 instance is running on AWS and is publicly accessible.
 - AWS infra and instance is configured with an Terraform.
-- The playbook installs a PHP web server and a landing page that says "Welcome to Blinker19!"
-- The playbook code is stored in a publicly accessible Git repository.
+- GitHub Actions workflow with automatically create a Plan on a Pull Request
+- GitHub Actions workflow will automatically apply infra changes on a Pull Request Merge
 
 
 ## Architecture Diagram
@@ -14,13 +14,6 @@
 ![Architecture Diagram](imags/simple.png)
 
 ## Implementation
-### Assumptions
-- AWS Account
-  - Programmatic Access Keys
-- Tools installed
-  - Git
-  - terraform
-
 ### Procedure
 1. Gather requirements
   - Clone GitHub repository
@@ -31,7 +24,15 @@
 
 ![Actions Secrets](images/github_secrets.png)
 
-3. 
+3. Validte the TF manifests in the terraform directory
+  - main.tf
+  - output.tf
+  - user_data.txt
+4. 
+
+Login to ec2 instance
+  - ansible-playbook -i inventory-growth ansible.containerized_installer.install -eansible_connection=local
+
 ### Pull-Request Validation
 
 - Github actions performs terraform steps to validate PR, before it is eligible for merge to master.
