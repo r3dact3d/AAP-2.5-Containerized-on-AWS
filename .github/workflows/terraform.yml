@@ -31,15 +31,15 @@ jobs:
       - name: Checkout the repository to the runner
         uses: actions/checkout@v2
 
-      - name: Create bucket in S3 for backend
-        if: github.event_name == 'pull_request'
-        uses: aitorres/aws-s3-create-bucket@v1.2.0
-        with:
-          bucket-name: tfstate-bucket-blinker19
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: 'us-east-2'
-          acl: 'private'
+#      - name: Create bucket in S3 for backend
+#        if: github.event_name == 'pull_request'
+#        uses: aitorres/aws-s3-create-bucket@v1.2.0
+#        with:
+#          bucket-name: tfstate-bucket-blinker19
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws-region: 'us-east-2'
+#          acl: 'private'
 
       - name: Setup Terraform with specified version on the runner
         uses: hashicorp/setup-terraform@v2
