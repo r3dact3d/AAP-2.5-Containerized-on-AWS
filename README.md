@@ -31,7 +31,7 @@
 
 ![Actions Secrets](images/github_secrets.png)
 
-
+3. 
 ### Pull-Request Validation
 
 - Github actions performs terraform steps to validate PR, before it is eligible for merge to master.
