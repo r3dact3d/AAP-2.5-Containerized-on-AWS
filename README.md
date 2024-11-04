@@ -11,7 +11,7 @@
 
 ## Architecture Diagram
 
-![Architecture Diagram](simple.png)
+![Architecture Diagram](imags/simple.png)
 
 ## Implementation
 ### Assumptions
@@ -25,20 +25,12 @@
 1. Gather requirements
   - Clone GitHub repository
   - AWS Access keys
-2. Deploy
-  - Change to the working directory
-    `cd Trial-Project/`
-  - Initialize with AWS Provider
-    `terraform init`
-  - Edit variables.tf and update variables with access keys
-  - Create and review plan
-    `terraform plan`
-  - Apply plan
-    `terraform apply -auto-approve`
-3. **Output** will give you public IP address to access landing page
-4. Access landing page http://<public_ip>/blinker19.php
-5. Tear down procedure
-  `terraform destroy -auto-approve`
+2. Create or update Repository secrets 
+  - AWS_ACCESS_KEY
+  - AWS_SECRET_ACCESS_KEY
+
+![Actions Secrets](images/github_secrets.png)
+
 
 ### Pull-Request Validation
 
