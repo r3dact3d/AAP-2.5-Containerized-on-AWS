@@ -28,14 +28,7 @@
   - main.tf
   - output.tf
   - user_data.txt
-4. Login to ec2 instance - todo with user-data
-  - hostnamectl
-  - /etc/hosts
-  - subscription-manager register
-  - dnf install
-  - AAP Package download and untar
-  - update inventory
-  - ansible-playbook -i inventory-growth ansible.containerized_installer.install -eansible_connection=local
+
 
 ### Pull-Request Validation
 
@@ -48,7 +41,11 @@
 ### Update
 
 
-https://github.com/ansible-collections/cloud.terraform/tree/main
-
-
-https://developer.hashicorp.com/terraform/tutorials/automation/github-actions
+1. Login to ec2 instance - todo with user-data
+  - hostnamectl
+  - /etc/hosts
+  - subscription-manager register
+  - dnf install
+  - AAP Package download and untar
+  - update inventory
+  - ansible-playbook -i inventory-growth ansible.containerized_installer.install -eansible_connection=local
