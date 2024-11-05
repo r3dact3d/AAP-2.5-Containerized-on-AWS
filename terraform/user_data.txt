@@ -7,3 +7,4 @@ echo "<p>Welcome to the Blinker19!</p>";
 ?>
 ''' >> /home/ec2-user/blinker19.php
 sudo php -S 0.0.0.0:80 -t /home/ec2-user blinker19.php
+#test
