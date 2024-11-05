@@ -41,9 +41,12 @@
 ### Post Infra AAP Install
 
 1. Copy installer files to new ec2 instance
+```sh
 scp ansible-platform-containerized-setup-2.5-3.tar.gz ec2-user@pubIP:/home/ec2-user/
+```
 
 2. Login to ec2 instance - todo with user-data
+```sh
 sudo hostnamectl <HOSTNAME>
 sudo echo "127.0.0.2    <HOSTNAME> localhost" >> /etc/hosts
 sudo subscription-manager register
@@ -54,3 +57,4 @@ sudo dnf install -y wget git-core rsync vim
 sed -i 's/default-passwords/new-install-password/g' inventory-growth 
 sed -i 's/aap.example.org/New-fqdn-FOR-GATEWAY/g' inventory-growth 
 ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local
+```
