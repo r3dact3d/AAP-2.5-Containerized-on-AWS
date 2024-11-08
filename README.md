@@ -50,11 +50,7 @@ scp ansible-automation-platform-containerized-setup-2.5-3.tar.gz ec2-user@pubIP:
 
 2. Login to ec2 instance - todo with user-data
 ```sh
-sudo hostnamectl set-hostname <HOSTNAME>
-sudo echo "127.0.0.1    <HOSTNAME> localhost" >> /etc/hosts
 sudo subscription-manager register
-sudo dnf repolist
-sudo dnf config-manager --disable rhui-client-config-server-9
 sudo dnf install -y ansible-core
 tar xfvz ansible-automation-platform-containerized-setup-2.4-2.tar.gz
 cd ansible-automation-platform*
