@@ -29,6 +29,8 @@
   - output.tf
   - user_data.txt
 
+NOTE: you will need to put your ssh pub key in the main.tf file
+
 
 ### Pull-Request Validation
 
@@ -42,19 +44,20 @@
 
 1. Copy installer files to new ec2 instance
 ```sh
-scp ansible-platform-containerized-setup-2.5-3.tar.gz ec2-user@pubIP:/home/ec2-user/
+scp ansible-automation-platform-containerized-setup-2.5-3.tar.gz ec2-user@pubIP:/home/ec2-user/
 ```
 
 2. Login to ec2 instance - todo with user-data
 ```sh
-sudo hostnamectl <HOSTNAME>
-sudo echo "127.0.0.2    <HOSTNAME> localhost" >> /etc/hosts
+sudo hostnamectl set-hostname <HOSTNAME>
+sudo echo "127.0.0.1    <HOSTNAME> localhost" >> /etc/hosts
 sudo subscription-manager register
 sudo dnf repolist
 sudo dnf config-manager --disable rhui-client-config-server-9
 sudo dnf install -y ansible-core
-sudo dnf install -y wget git-core rsync vim
-sed -i 's/default-passwords/new-install-password/g' inventory-growth 
+tar xfvz ansible-automation-platform-containerized-setup-2.4-2.tar.gz
+cd ansible-automation-platform*
+sed -i 's/<set your own>/new-install-password/g' inventory-growth 
 sed -i 's/aap.example.org/New-fqdn-FOR-GATEWAY/g' inventory-growth 
 ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local
 ```
