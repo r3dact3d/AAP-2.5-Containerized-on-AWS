@@ -31,6 +31,7 @@
 
 NOTE: you will need to put your ssh pub key in the main.tf file
 
+NOTE: you will need to create an S3 bucket that is referenced in main.tf backend config ie. tfstate-bucket-blinker19
 
 ### Pull-Request Validation
 

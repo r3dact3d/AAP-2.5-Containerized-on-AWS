@@ -3,3 +3,7 @@
 output "public_ip" {
   value = aws_instance.aap_instance.public_ip
 }
+
+output "public_fqdn" {
+  value = aws_instance.aap_instance.public_dns
+}
