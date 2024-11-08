@@ -206,7 +206,7 @@ resource "aws_instance" "aap_instance" {
 # Add created ec2 instance to ansible inventory
 resource "ansible_host" "aap_instance" {
   name   = aws_instance.aap_instance.public_dns
-  groups = ["webserver"]
+  groups = ["gateway"]
   variables = {
     ansible_user                 = "ec2-user",
     ansible_ssh_private_key_file = "~/.ssh/id_rsa",
