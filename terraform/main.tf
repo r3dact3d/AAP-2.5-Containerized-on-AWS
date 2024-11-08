@@ -16,7 +16,7 @@ terraform {
 
 terraform {
   backend "s3" {
-    bucket = "tfstate-bucket-blinker20"
+    bucket = "tfstate-bucket-blinker19"
     key    = "terraform.tfstate"
     region = "us-east-2"
   }
