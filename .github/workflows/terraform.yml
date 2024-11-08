@@ -48,7 +48,7 @@ jobs:
       
       - name: Terraform init
         id: init
-        run: terraform init -backend-config="bucket=tfstate-bucket-blinker20"
+        run: terraform init -backend-config="bucket=tfstate-bucket-blinker19"
       
       - name: Terraform validate
         id: validate
