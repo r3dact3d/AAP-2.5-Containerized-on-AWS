@@ -1,4 +1,3 @@
----
 - name: Create inventory from state file containing AWS instances
   plugin: cloud.terraform.terraform_state
   backend_type: s3
