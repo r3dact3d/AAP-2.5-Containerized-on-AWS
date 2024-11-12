@@ -191,7 +191,7 @@ resource "aws_instance" "aap_instance" {
   vpc_security_group_ids      = [aws_security_group.aap_security_group.id]
   associate_public_ip_address = true
   key_name        = aws_key_pair.my_key.key_name
-  user_data                   = file("user_data.txt")
+#  user_data                   = file("user_data.txt")
   ami                         = data.aws_ami.rhel.id
   availability_zone           = "us-east-2a"
   subnet_id                   = aws_subnet.aap_subnet.id
@@ -214,14 +214,26 @@ resource "null_resource" "hostname_update" {
 
   provisioner "remote-exec" {
     inline = [
+      # Register Red Hat Host
+      "sudo rhc connect --activation-key=<activation_key_name> --organization=<organization_ID>",
+      
+      # Ensure stuff is installed
+      "sudo dnf install -y ansible-core wget git-core rsync vim",
+
+      # Set hostname
       "sudo hostnamectl set-hostname ${aws_instance.aap_instance.public_dns}",
+
+      # Download and extract the setup file
       "wget https://github.com/r3dact3d/Trial-Project/post_data/ansible-automation-platform-containerized-setup-2.5-3.tar.gz",
       "tar xfvz ansible-automation-platform-containerized-setup-2.5-3.tar.gz",
+
+      # Configure and run the playbook
       "cd ansible-automation-platform-containerized-setup-2.5-3",
       "sed -i 's/<set your own>/new-install-password/g' inventory-growth",
       "sed -i 's/aap.example.org/${aws_instance.aap_instance.public_dns}/g' inventory-growth",
       "nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & >> null"
     ]
+    
     
     connection {
       type        = "ssh"
