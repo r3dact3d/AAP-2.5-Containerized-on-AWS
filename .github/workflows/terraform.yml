@@ -30,6 +30,9 @@ jobs:
     steps:
       - name: Checkout the repository to the runner
         uses: actions/checkout@v2
+        run: |
+          perl -pi -e 's/<organization_ID>/${{ secrets.ORG_ID }}/' terraform/user_data.txt
+          perl -pi -e 's/<activation_key_name>/${{ secrets.ACTIVATION_KEY }}/' terraform/user_data.txt
 
 #      - name: Create bucket in S3 for backend
 #        if: github.event_name == 'pull_request'
