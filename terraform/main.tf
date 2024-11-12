@@ -201,7 +201,6 @@ resource "aws_instance" "aap_instance" {
     Name      = "aap-controller"
     Terraform = "true"
   }
-  depends_on = [null_resource.hostname_update]
 }
 
 resource "null_resource" "hostname_update" {
