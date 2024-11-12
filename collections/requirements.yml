@@ -1,6 +1,0 @@
----
-collections:
-  - name: cloud.terraform
-    version: 3.0.0
-  - name: community.general
-  - name: amazon.aws
