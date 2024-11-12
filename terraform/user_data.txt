@@ -1,5 +1,5 @@
 #!/bin/bash
-hostnamectl set-hostname ${aws_instance.aap_instance.public_dns}
+hostnamectl set-hostname ${hostname}
 
 sudo rhc connect --activation-key=<activation_key_name> --organization=<organization_ID>
 sudo dnf install -y ansible-core wget git-core rsync vim
@@ -8,6 +8,5 @@ tar xfvz ansible-automation-platform-containerized-setup-2.5-3.tar.gz
 cd ansible-automation-platform-containerized-setup-2.5-3
 
 sed -i 's/<set your own>/new-install-password/g' inventory-growth 
-sed -i 's/aap.example.org/${aws_instance.aap_instance.public_dns}/g' inventory-growth 
+sed -i 's/aap.example.org/${hostname}/g' inventory-growth 
 nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & >> null
-EOF
