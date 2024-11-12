@@ -17,10 +17,11 @@
 ### Procedure
 1. Gather requirements
   - Clone GitHub repository
-  - AWS Access keys
 2. Create or update Repository secrets 
   - AWS_ACCESS_KEY
   - AWS_SECRET_ACCESS_KEY
+  - ORG_ID
+  - ACTIVATION_KEY
 
 ![Actions Secrets](images/github_secrets.png)
 

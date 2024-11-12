@@ -1,2 +1,4 @@
 #!/bin/bash
 hostnamectl set-hostname ${aws_instance.aap_instance.public_dns}
+
+rhc connect --activation-key=<activation_key_name> --organization=<organization_ID>
