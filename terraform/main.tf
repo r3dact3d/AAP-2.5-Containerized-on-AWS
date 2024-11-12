@@ -225,7 +225,8 @@ resource "null_resource" "hostname_update" {
 
       # Download and extract the setup file
       "wget https://github.com/r3dact3d/Trial-Project/blob/ansible/post_data/ansible-automation-platform-containerized-setup-2.5-3.tar.gz",
-      "tar -xfvz ansible-automation-platform-containerized-setup-2.5-3.tar.gz",
+      "file ansible-automation-platform-containerized-setup-2.5-3.tar.gz",
+      "tar xfvz ansible-automation-platform-containerized-setup-2.5-3.tar.gz",
 
       # Configure and run the playbook
       "cd ansible-automation-platform-containerized-setup-2.5-3",
