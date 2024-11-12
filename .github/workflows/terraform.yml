@@ -103,7 +103,9 @@ jobs:
       - name: Capture Private Key Output
         if: ${{ success() }}
         id: private_key_output
-        run: echo "PRIVATE_KEY=$(terraform output -raw private_key)" >> $GITHUB_ENV
+        run: |
+          PRIVATE_KEY=$(terraform output -raw private_key 2>/dev/null)
+          echo "PRIVATE_KEY=${PRIVATE_KEY}" >> $GITHUB_ENV
 
       # Run this step only if the private key capture was successful
       - name: Save Private Key to File
