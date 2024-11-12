@@ -32,9 +32,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Configure user_data
         run: |
-          perl -pi -e 's/<organization_ID>/${{ secrets.ORG_ID }}/' terraform/user_data.txt
-          perl -pi -e 's/<activation_key_name>/${{ secrets.ACTIVATION_KEY }}/' terraform/user_data.txt
-          perl -pi -e 's/new-install-password/${{ secrets.AAP_PASS }}/' terraform/user_data.txt
+          perl -pi -e 's/<organization_ID>/${{ secrets.ORG_ID }}/' user_data.txt
+          perl -pi -e 's/<activation_key_name>/${{ secrets.ACTIVATION_KEY }}/' user_data.txt
+          perl -pi -e 's/new-install-password/${{ secrets.AAP_PASS }}/' user_data.txt
 
 #      - name: Create bucket in S3 for backend
 #        if: github.event_name == 'pull_request'
