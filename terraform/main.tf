@@ -203,6 +203,24 @@ resource "aws_instance" "aap_instance" {
   }
 }
 
+resource "null_resource" "hostname_update" {
+  depends_on = [aws_instance.aap_instance]
+
+  provisioner "local-exec" {
+    command = <<EOT
+      ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa ec2-user@${aws_instance.aap_instance.public_ip} <<'EOF'
+        sudo hostnamectl set-hostname ${aws_instance.aap_instance.public_dns}
+        wget https://github.com/r3dact3d/Trial-Project/post_data/ansible-automation-platform-containerized-setup-2.5-3.tar.gz
+        tar xfvz ansible-automation-platform-containerized-setup-2.5-3.tar.gz
+        cd ansible-automation-platform-containerized-setup-2.5-3
+        sed -i 's/<set your own>/new-install-password/g' inventory-growth
+        sed -i 's/aap.example.org/${aws_instance.aap_instance.public_dns}/g' inventory-growth
+        nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & >> null
+      EOF
+    EOT
+  }
+}
+
 # Add created ec2 instance to ansible inventory
 resource "ansible_host" "aap_instance" {
   name   = aws_instance.aap_instance.public_dns
