@@ -2,5 +2,4 @@
 sudo rhc connect --activation-key=<activation_key_name> --organization=<organization_ID>
 sudo dnf install -y ansible-core wget git-core rsync vim
 wget https://github.com/r3dact3d/Trial-Project/post_data/ansible-automation-platform-containerized-setup-2.5-3.tar.gz
-tar xfvz ansible-automation-platform-containerized-setup-2.5-3.tar.gz
-cd ansible-automation-platform-containerized-setup-2.5-3
+
