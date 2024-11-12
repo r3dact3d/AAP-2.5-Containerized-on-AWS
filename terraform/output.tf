@@ -11,3 +11,8 @@ output "public_fqdn" {
 output "instance_id" {
   value = aws_instance.aap_instance.id
 }
+
+output "private_key" {
+  value     = tls_private_key.my_key.private_key_pem
+  sensitive = true
+}

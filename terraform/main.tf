@@ -26,10 +26,16 @@ provider "aws" {
   region = "us-east-2"
 }
 
+#Generate SSH key pair 
+resource "tls_private_key" "my_key" {
+  algorithm = "RSA"
+  rsa_bits  = 2048
+}
+
 # Add key for ssh connection
 resource "aws_key_pair" "my_key" {
   key_name   = "my_key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC0YP818L8HTt+pKUU+XPD8dJ9kYDhtplUKaodICGcS63A6EgdGGaxh45DVz8JmTNbP3RHQw6XbfTjNGmOO56UaGxQOsc+ONZ8fFjd+qa+7hBo6tIlrdRkrgZgKNDhTh4HijDgaqpPLhXroUK2TE61CSCiJezVbwwXtXU43wQYoeR06E+Ji1lfLLb5b5pIuUKwTRwa+6u9zL7JrDznKq5YZxsmkX3PNI9gHQT+SnSqPOGctXhbMQX7JWZA60EFx8MZXe8O9QC3LMrgNv90CCR9qnyd7/WTtb+lk/7lTYbFfj2W0WsQZMc2tnvoNv8azeCQcSHs6U2nsKd7lxXmmD0OFtXxSqI/O1628Q71sFjPIvET04I9ENHaAWwaI3s98I3Lt8Z5NLNqHrxwhmrFT5mTdn91Fzq4Ax7UKqcVG8Rtkzg7HnXL6nLIQs/cdRprysJIGC0aEpoHSN1OTqMcJkP4ySv5aYgT/G68Uau5JkBS8tKbeKNw+KE4Aq6tUJ+3etYc= brthomps@brthomps-thinkpadx1carbongen9.remote.csb"
+  public_key = tls_private_key.my_key.public_key_openssh
 }
 
 resource "aws_vpc" "aap_vpc" {
@@ -206,18 +212,23 @@ resource "aws_instance" "aap_instance" {
 resource "null_resource" "hostname_update" {
   depends_on = [aws_instance.aap_instance]
 
-  provisioner "local-exec" {
-    command = <<EOT
-      ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa ec2-user@${aws_instance.aap_instance.public_ip} <<'EOF'
-        sudo hostnamectl set-hostname ${aws_instance.aap_instance.public_dns}
-        wget https://github.com/r3dact3d/Trial-Project/post_data/ansible-automation-platform-containerized-setup-2.5-3.tar.gz
-        tar xfvz ansible-automation-platform-containerized-setup-2.5-3.tar.gz
-        cd ansible-automation-platform-containerized-setup-2.5-3
-        sed -i 's/<set your own>/new-install-password/g' inventory-growth
-        sed -i 's/aap.example.org/${aws_instance.aap_instance.public_dns}/g' inventory-growth
-        nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & >> null
-      EOF
-    EOT
+  provisioner "remote-exec" {
+    inline = [
+      "sudo hostnamectl set-hostname ${aws_instance.aap_instance.public_dns}",
+      "wget https://github.com/r3dact3d/Trial-Project/post_data/ansible-automation-platform-containerized-setup-2.5-3.tar.gz",
+      "tar xfvz ansible-automation-platform-containerized-setup-2.5-3.tar.gz",
+      "cd ansible-automation-platform-containerized-setup-2.5-3",
+      "sed -i 's/<set your own>/new-install-password/g' inventory-growth",
+      "sed -i 's/aap.example.org/${aws_instance.aap_instance.public_dns}/g' inventory-growth",
+      "nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & >> null"
+    ]
+    
+    connection {
+      type        = "ssh"
+      host        = aws_instance.aap_instance.public_ip
+      user        = "ec2-user"
+      private_key = tls_private_key.my_key.private_key_pem
+    }
   }
 }
 
