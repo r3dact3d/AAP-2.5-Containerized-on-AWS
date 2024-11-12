@@ -101,22 +101,26 @@ jobs:
         run: terraform apply -auto-approve -input=false
 
       - name: Capture Private Key Output
-        if: ${{ success() }}
+        if: ${{ success() && steps.apply.outcome == 'success' }}
         id: private_key_output
         run: |
-          PRIVATE_KEY=$(terraform output -raw private_key 2>/dev/null)
+          PRIVATE_KEY=$(terraform output -raw private_key 2>/dev/null || echo "")
+          if [ -z "$PRIVATE_KEY" ]; then
+            echo "Error: Private key output is empty or unavailable."
+            exit 1
+          fi
           echo "PRIVATE_KEY=${PRIVATE_KEY}" >> $GITHUB_ENV
 
       # Run this step only if the private key capture was successful
       - name: Save Private Key to File
-        if: ${{ success() && steps.apply.outcome == 'success' }}
+        if: ${{ success() }}
         run: |
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
         shell: bash
 
       - name: Upload Private Key as Artifact
-        if: ${{ success() && steps.apply.outcome == 'success' }}
+        if: ${{ success() }}
         uses: actions/upload-artifact@v4
         with:
           name: private_key
