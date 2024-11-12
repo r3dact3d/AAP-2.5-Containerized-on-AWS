@@ -115,7 +115,7 @@ jobs:
 
       - name: Upload Private Key as Artifact
         if: ${{ success() && steps.apply.outcome == 'success' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: private_key
           path: private_key.pem
