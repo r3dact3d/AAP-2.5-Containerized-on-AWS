@@ -191,7 +191,7 @@ resource "aws_instance" "aap_instance" {
   vpc_security_group_ids      = [aws_security_group.aap_security_group.id]
   associate_public_ip_address = true
   key_name        = aws_key_pair.my_key.key_name
-#  user_data                   = file("user_data.txt")
+  user_data                   = file("user_data.txt")
   ami                         = data.aws_ami.rhel.id
   availability_zone           = "us-east-2a"
   subnet_id                   = aws_subnet.aap_subnet.id
