@@ -240,7 +240,6 @@ resource "null_resource" "hostname_update" {
       type        = "ssh"
       host        = aws_instance.aap_instance.public_ip
       user        = "ec2-user"
-      ssh_pty     = false
       private_key = tls_private_key.my_key.private_key_pem
     }
   }
