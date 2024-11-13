@@ -11,7 +11,6 @@ on:
     - ansible
     paths:
     - terraform/**
-  workflow_dispatch:
 
 env: 
   TF_LOG: INFO
