@@ -27,16 +27,21 @@ provider "aws" {
 }
 
 #Generate SSH key pair 
-#resource "tls_private_key" "my_key" {
-#  algorithm = "RSA"
-#  rsa_bits  = 2048
-#}
+resource "tls_private_key" "cloud_key" {
+  algorithm = "RSA"
+  rsa_bits  = 2048
+}
 
 # Add key for ssh connection
 resource "aws_key_pair" "my_key" {
   key_name   = "my_key"
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC0YP818L8HTt+pKUU+XPD8dJ9kYDhtplUKaodICGcS63A6EgdGGaxh45DVz8JmTNbP3RHQw6XbfTjNGmOO56UaGxQOsc+ONZ8fFjd+qa+7hBo6tIlrdRkrgZgKNDhTh4HijDgaqpPLhXroUK2TE61CSCiJezVbwwXtXU43wQYoeR06E+Ji1lfLLb5b5pIuUKwTRwa+6u9zL7JrDznKq5YZxsmkX3PNI9gHQT+SnSqPOGctXhbMQX7JWZA60EFx8MZXe8O9QC3LMrgNv90CCR9qnyd7/WTtb+lk/7lTYbFfj2W0WsQZMc2tnvoNv8azeCQcSHs6U2nsKd7lxXmmD0OFtXxSqI/O1628Q71sFjPIvET04I9ENHaAWwaI3s98I3Lt8Z5NLNqHrxwhmrFT5mTdn91Fzq4Ax7UKqcVG8Rtkzg7HnXL6nLIQs/cdRprysJIGC0aEpoHSN1OTqMcJkP4ySv5aYgT/G68Uau5JkBS8tKbeKNw+KE4Aq6tUJ+3etYc= brthomps@brthomps-thinkpadx1carbongen9.remote.csb"
-#  public_key = tls_private_key.my_key.public_key_openssh
+}
+
+# Add key for ssh connection
+resource "aws_key_pair" "cloud_key" {
+  key_name   = "cloud_key"
+  public_key = tls_private_key.my_key.public_key_openssh
 }
 
 resource "aws_vpc" "aap_vpc" {
@@ -241,6 +246,7 @@ resource "null_resource" "hostname_update" {
       type        = "ssh"
       host        = aws_instance.aap_instance.public_ip
       user        = "ec2-user"
+      private_key = tls_private_key.cloud_key.private_key_pem
     }
   }
 }
