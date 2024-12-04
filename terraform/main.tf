@@ -41,7 +41,7 @@ resource "aws_key_pair" "my_key" {
 # Add key for ssh connection
 resource "aws_key_pair" "cloud_key" {
   key_name   = "cloud_key"
-  public_key = tls_private_key.my_key.public_key_openssh
+  public_key = tls_private_key.cloud_key.public_key_openssh
 }
 
 resource "aws_vpc" "aap_vpc" {
