@@ -96,21 +96,27 @@ jobs:
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
-      - name: Terraform Apply
+        - name: Terraform Apply
         id: apply
         if: github.ref == 'refs/heads/ansible' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
-
+      
       - name: Capture Private Key Output
         if: ${{ success() && steps.apply.outcome == 'success' }}
         id: private_key_output
         run: |
+          # Capture only the private key output, ignoring any logging info
           PRIVATE_KEY=$(terraform output -raw private_key 2>/dev/null || echo "")
+      
+          # Verify that the private key is non-empty
           if [ -z "$PRIVATE_KEY" ]; then
             echo "Error: Private key output is empty or unavailable."
             exit 1
           fi
+      
+          # Export PRIVATE_KEY to the GitHub Actions environment
           echo "PRIVATE_KEY=${PRIVATE_KEY}" >> $GITHUB_ENV
+      
 
       # Run this step only if the private key capture was successful
       - name: Save Private Key to File
