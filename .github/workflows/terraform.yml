@@ -35,6 +35,8 @@ jobs:
           perl -pi -e 's/<organization_ID>/${{ secrets.ORG_ID }}/' main.tf
           perl -pi -e 's/<activation_key_name>/${{ secrets.ACTIVATION_KEY }}/' main.tf
           perl -pi -e 's/new-install-password/${{ secrets.AAP_PASS }}/' main.tf
+          perl -pi -e 's/rhn_user/${{ secrets.RHN_USER }}/' main.tf
+          perl -pi -e 's/rhn_pass/${{ secrets.RHN_PASS }}/' main.tf
 
 #      - name: Create bucket in S3 for backend
 #        if: github.event_name == 'pull_request'
