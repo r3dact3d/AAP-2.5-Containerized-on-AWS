@@ -224,15 +224,16 @@ resource "null_resource" "hostname_update" {
       "sudo hostnamectl set-hostname ${aws_instance.aap_instance.public_dns}",
 
       # Download and extract the setup file
-      "wget https://github.com/r3dact3d/Trial-Project/raw/refs/heads/ansible/post_data/ansible-automation-platform-containerized-setup-2.5-3.tar.gz",
-      "file ansible-automation-platform-containerized-setup-2.5-3.tar.gz",
-      "tar xfvz ansible-automation-platform-containerized-setup-2.5-3.tar.gz",
+      "wget https://github.com/r3dact3d/Trial-Project/raw/refs/heads/ansible/post_data/ansible-automation-platform-containerized-setup-2.5-6.tar.gz",
+      "file ansible-automation-platform-containerized-setup-2.5-6.tar.gz",
+      "tar xfvz ansible-automation-platform-containerized-setup-2.5-6.tar.gz",
+      "sleep 45",
 
       # Configure and run the playbook
-      "cd ansible-automation-platform-containerized-setup-2.5-3",
+      "cd ansible-automation-platform-containerized-setup-2.5-6",
       "sed -i 's/<set your own>/new-install-password/g' inventory-growth",
       "sed -i 's/aap.example.org/${aws_instance.aap_instance.public_dns}/g' inventory-growth",
-      "nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & 2>/dev/null"
+      #"nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & 2>/dev/null",
     ]
     
     
