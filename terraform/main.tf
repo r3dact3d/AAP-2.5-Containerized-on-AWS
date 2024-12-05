@@ -233,6 +233,8 @@ resource "null_resource" "hostname_update" {
       "cd ansible-automation-platform-containerized-setup-2.5-6",
       "sed -i 's/<set your own>/new-install-password/g' inventory-growth",
       "sed -i 's/aap.example.org/${aws_instance.aap_instance.public_dns}/g' inventory-growth",
+      "sed -i 's/<your RHN username>/rhn_user/g' inventory-growth",
+      "sed -i 's/<your RHN password>/rhn_pass/g' inventory-growth",
       #"nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & 2>/dev/null",
     ]
     
