@@ -31,6 +31,9 @@ This project leverages Terraform to provision infrastructure and integrates GitH
 
 2. **Configure Repository Secrets**  
    Add the following secrets in the GitHub repository settings:  
+
+  ![Actions Secrets](images/github_secrets.png)  
+  
    - `AWS_ACCESS_KEY`  
    - `AWS_SECRET_ACCESS_KEY`  
    - `ORG_ID` (Profile in [cloud.redhat.com](https://cloud.redhat.com))  
@@ -39,7 +42,7 @@ This project leverages Terraform to provision infrastructure and integrates GitH
    - `RHN_PASS` (Red Hat Network password)  
    - `AAP_PASS` (Default password for the initial inventory file)  
 
-   ![Actions Secrets](images/github_secrets.png)  
+ 
 
    ![Activation Key](images/activation_key.png)
 
