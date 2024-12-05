@@ -30,7 +30,7 @@ jobs:
     steps:
       - name: Checkout the repository to the runner
         uses: actions/checkout@v2
-      - name: Configure user_data
+      - name: Configure user_data and/or remote_exec provisioner
         run: |
           perl -pi -e 's/<organization_ID>/${{ secrets.ORG_ID }}/' main.tf
           perl -pi -e 's/<activation_key_name>/${{ secrets.ACTIVATION_KEY }}/' main.tf
