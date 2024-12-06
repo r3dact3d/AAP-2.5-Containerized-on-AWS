@@ -235,7 +235,6 @@ resource "null_resource" "hostname_update" {
       "sed -i 's/aap.example.org/${aws_instance.aap_instance.public_dns}/g' inventory-growth",
       "sed -i 's/<your RHN username>/rhn_user/g' inventory-growth",
       "sed -i 's/<your RHN password>/rhn_pass/g' inventory-growth",
-      "sudo dnf install -y screen"
       #"nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & 2>/dev/null",
     ]
     
