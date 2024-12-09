@@ -53,9 +53,10 @@ This project leverages Terraform to provision infrastructure and integrates GitH
    - `user_data.txt`  
 
    > **Note:**  
-   - Ensure your SSH public key is added to `user_data.txt`.  
-   - Create an S3 bucket referenced in the backend configuration of `main.tf` (e.g., `tfstate-bucket-blinker19`).
+   - Ensure your SSH public key is added to `user_data.txt`.  This is the public key from your laptop or bastion server so you can ssh in for maintenance and run installer.
+   - Create an S3 bucket referenced in the backend configuration of `main.tf` (e.g., `tfstate-bucket-blinker19`).  If you use a different name look and update the code.
    - Review `remote-exec` custom code for specifics to configure ec2 instance in `main.tf`.
+   - AAP Bundle referenced in `remote-exec` can be downloaded from [access.redhat.com/downloads](https://access.redhat.com/downloads/content/480/ver=2.5/rhel---9/2.5/x86_64/product-software) and placed in `post-data` directory and look and update the code.
 
 ![Custom remote-exec](images/remote-exec-img.png)
 
@@ -68,6 +69,8 @@ This project leverages Terraform to provision infrastructure and integrates GitH
    - `terraform validate`  
    - `terraform plan`  
 
+   > **Note:**  
+   - DO NOT MERGE until you are happy with the terraform plan if you update anything in `terraform` directory the GitHub Actions Workflow will kick off.
 ---
 
 ### Post-Infrastructure: Installing AAP 2.5
