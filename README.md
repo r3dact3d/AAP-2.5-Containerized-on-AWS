@@ -84,6 +84,17 @@ This project leverages Terraform to provision infrastructure and integrates GitH
    ![Terraform Output](images/tf_output.png)
 
 6. **Install Ansible Automation Platform 2.5 (Containerized)**  
-   Run the following command:  
+
+   From the machine with the corresponding SSH keys that were added to the `user_data.txt` :  
+
    ```bash
+   ssh ec2-user@<public IP>
+
+   cd ansible-automation-platform-containerized-setup-2.5-6
+
    nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local &>/dev/null &
+---
+
+   > **Note:**  
+   - Capture the PID of the ansible process started by nohup and run the `top` process to monitor the status.
+   - Also, creates a log in the working directory for review, but top will keep the session from timing out.  
