@@ -36,8 +36,8 @@ This project leverages Terraform to provision infrastructure and integrates GitH
 
    - `AWS_ACCESS_KEY`  
    - `AWS_SECRET_ACCESS_KEY`  
-   - `ORG_ID` (Profile in [cloud.redhat.com](https://cloud.redhat.com))  
-   - `ACTIVATION_KEY` (Created in **Inventory > System Configuration > Activation Keys**)  
+   - `ORG_ID` (Profile in [cluod.redhat.com](https://cloud.redhat.com))  
+   - `ACTIVATION_KEY` (Created in **Inventory > System Configuration > Activation Keys** [console.redhat.com](https://console.redhat.com/insights/connector/activation-keys#SIDs=&tags=))  
    - `RHN_USER` (Red Hat Network username)  
    - `RHN_PASS` (Red Hat Network password)  
    - `AAP_PASS` (Default password for the initial inventory file)  
@@ -53,10 +53,10 @@ This project leverages Terraform to provision infrastructure and integrates GitH
    - `user_data.txt`  
 
    > **Note:**  
-   - Ensure your SSH public key is added to `user_data.txt`.  This is the public key from your laptop or bastion server so you can ssh in for maintenance and run installer.
-   - Create an S3 bucket referenced in the backend configuration of `main.tf` (e.g., `tfstate-bucket-blinker19`).  If you use a different name look and update the code.
+   - Ensure your SSH public key is added to `user_data.txt`.  *This is the public key from your laptop or bastion server so you can ssh in for maintenance and run installer.*
+   - Create an S3 bucket referenced in the backend configuration of `main.tf` (e.g., `tfstate-bucket-blinker19`).  *If you use a different name look and update the code.*
    - Review `remote-exec` custom code for specifics to configure ec2 instance in `main.tf`.
-   - AAP Bundle referenced in `remote-exec` can be downloaded from [access.redhat.com/downloads](https://access.redhat.com/downloads/content/480/ver=2.5/rhel---9/2.5/x86_64/product-software) and placed in `post-data` directory and look and update the code.
+   - AAP Bundle referenced in `remote-exec` can be downloaded from [access.redhat.com/downloads](https://access.redhat.com/downloads/content/480/ver=2.5/rhel---9/2.5/x86_64/product-software) and placed in `post-data` directory. *Then, look and update the code to reflect updated version.*
 
 ![Custom remote-exec](images/remote-exec-img.png)
 
