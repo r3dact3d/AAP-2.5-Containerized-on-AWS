@@ -20,6 +20,8 @@ This project leverages Terraform to provision infrastructure and integrates GitH
 
 ![Architecture Diagram](images/simple.png)
 
+   > **Note:**  
+   - The ec2 details are out of date, see `terraform` code in `main.tf`.  
 ---
 
 ### Implementation
@@ -53,6 +55,9 @@ This project leverages Terraform to provision infrastructure and integrates GitH
    > **Note:**  
    - Ensure your SSH public key is added to `user_data.txt`.  
    - Create an S3 bucket referenced in the backend configuration of `main.tf` (e.g., `tfstate-bucket-blinker19`).
+   - Review `remote-exec` custom code for specifics to configure ec2 instance in `main.tf`.
+
+![Custom remote-exec](images/remote-exec-img.png)
 
 #### Pull Request Validation
 
