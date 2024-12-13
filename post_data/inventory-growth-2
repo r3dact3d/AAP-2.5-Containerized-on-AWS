@@ -34,8 +34,6 @@ ee_supported_image=ee-supported-rhel9:latest
 de_supported_image=de-supported-rhel9:latest
 
 # Common variables
-# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/containerized_installation/appendix-inventory-files-vars#ref-general-inventory-variables
-# -----------------------------------------------------
 postgresql_admin_username=postgres
 postgresql_admin_password=<set your own>
 
@@ -45,29 +43,21 @@ registry_password=<your RHN password>
 redis_mode=standalone
 
 # AAP Gateway
-# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/containerized_installation/appendix-inventory-files-vars#ref-gateway-variables
-# -----------------------------------------------------
 gateway_admin_password=<set your own>
 gateway_pg_host=aap.example.org
 gateway_pg_password=<set your own>
 
 # AAP Controller
-# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/containerized_installation/appendix-inventory-files-vars#ref-controller-variables
-# -----------------------------------------------------
 controller_admin_password=<set your own>
 controller_pg_host=aap.example.org
 controller_pg_password=<set your own>
 
 # AAP Automation Hub
-# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/containerized_installation/appendix-inventory-files-vars#ref-hub-variables
-# -----------------------------------------------------
 hub_admin_password=<set your own>
 hub_pg_host=aap.example.org
 hub_pg_password=<set your own>
 
 # AAP EDA Controller
-# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/containerized_installation/appendix-inventory-files-vars#event-driven-ansible-controller
-# -----------------------------------------------------
 eda_admin_password=<set your own>
 eda_pg_host=aap.example.org
 eda_pg_password=<set your own>
