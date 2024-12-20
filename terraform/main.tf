@@ -316,8 +316,8 @@ resource "null_resource" "hostname_update" {
       "sed -i 's/<your RHN username>/rhn_user/g' inventory-growth",
       "sed -i 's/<your RHN password>/rhn_pass/g' inventory-growth",
       "echo 'hub_shared_data_path=<path_to_nfs_share>' >> inventory-growth",
-      "sed -i 's/<path_to_nfs_share>/${aws_efs_file_system.efs.dns_name}/g' inventory-growth"
-      #"nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & 2>/dev/null",
+      "sed -i 's/<path_to_nfs_share>/${aws_efs_file_system.efs.dns_name}/g' inventory-growth",
+      "nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & 2>/dev/null"
     ]
     
     
