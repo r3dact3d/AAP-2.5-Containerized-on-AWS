@@ -64,17 +64,17 @@ eda_pg_password=<set your own>
 
 #configure a HAProxy load balancer in front of platform gateway with a custom CA cert
 # NOTE: HAProxy SSL passthrough mode is not supported with platform gateway
-custom_ca_cert=<path_to_cert_crt>
-gateway_main_url=<https://load_balancer_url>
+#custom_ca_cert=<path_to_cert_crt>
+#gateway_main_url=<https://load_balancer_url>
 
 #configure shared storage for automation hub
 #ensuring your network file system (NFS) share has read, write, and execute permissions
 hub_shared_data_path=<path_to_nfs_share>
 
 #define the location of your automation controller license file
-controller_license_file=<full_path_to_your_manifest_zip_file>
+#controller_license_file=<full_path_to_your_manifest_zip_file>
 
 #deploy remote execution nodes
-[execution_nodes]
-<fqdn_of_your_execution_host>
+#[execution_nodes]
+#<fqdn_of_your_execution_host>
 
