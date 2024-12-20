@@ -209,6 +209,81 @@ resource "aws_instance" "aap_instance" {
   }
 }
 
+# Create a Security Group for EFS
+resource "aws_security_group" "efs_security_group" {
+  name        = "efs-sg"
+  description = "Allow EFS access"
+  vpc_id      = aws_vpc.aap_vpc.id
+
+  ingress {
+    from_port   = 2049
+    to_port     = 2049
+    protocol    = "tcp"
+    cidr_blocks = ["10.1.0.0/16"] # Adjust CIDR block as needed
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name      = "EFS-Security-Group"
+    Terraform = "true"
+  }
+}
+
+# Create an EFS File System
+resource "aws_efs_file_system" "efs" {
+  creation_token = "aap-efs"
+  performance_mode = "generalPurpose" # or "maxIO" for high IOPS
+  lifecycle_policy {
+    transition_to_ia = "AFTER_30_DAYS" # Optional: Move files to Infrequent Access after 30 days
+  }
+
+  tags = {
+    Name      = "AAP-EFS"
+    Terraform = "true"
+  }
+}
+
+# Create Mount Targets for EFS
+resource "aws_efs_mount_target" "efs_mount_target_a" {
+  file_system_id  = aws_efs_file_system.efs.id
+  subnet_id       = aws_subnet.aap_subnet.id
+  security_groups = [aws_security_group.efs_security_group.id]
+}
+
+#resource "aws_efs_mount_target" "efs_mount_target_b" {
+#  file_system_id  = aws_efs_file_system.efs.id
+#  subnet_id       = aws_subnet.aap_subnet_2.id # Assuming a second subnet exists
+#  security_groups = [aws_security_group.efs_security_group.id]
+#}
+
+## Optional: Add EFS to an EC2 Instance as a Mount Point
+#resource "null_resource" "mount_efs" {
+#  depends_on = [aws_instance.aap_instance, aws_efs_file_system.efs]
+#
+#  provisioner "remote-exec" {
+#    inline = [
+#      "sudo yum install -y amazon-efs-utils",
+#      "sudo mkdir -p /mnt/efs",
+#      "sudo mount -t efs -o tls ${aws_efs_file_system.efs.id}:/ /mnt/efs",
+#      "sudo chmod 777 /mnt/efs" # Adjust permissions as needed
+#    ]
+
+#    connection {
+#      type        = "ssh"
+#      host        = aws_instance.aap_instance.public_ip
+#      user        = "ec2-user"
+#      private_key = tls_private_key.cloud_key.private_key_pem
+#    }
+#  }
+#}
+
+
 resource "null_resource" "hostname_update" {
   depends_on = [aws_instance.aap_instance]
 
