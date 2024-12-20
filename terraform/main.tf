@@ -306,6 +306,8 @@ resource "null_resource" "hostname_update" {
 
       # Configure and run the playbook
       "cd ansible-automation-platform-containerized-setup-2.5-6",
+      "wget -O inventory-growth https://raw.githubusercontent.com/r3dact3d/AAP-2.5-Containerized-on-AWS/refs/heads/ansible/post_data/inventory-growth-2",
+      "sleep 10",
       "sed -i 's/<set your own>/new-install-password/g' inventory-growth",
       "sed -i 's/aap.example.org/${aws_instance.aap_instance.public_dns}/g' inventory-growth",
       "sed -i 's/<your RHN username>/rhn_user/g' inventory-growth",
