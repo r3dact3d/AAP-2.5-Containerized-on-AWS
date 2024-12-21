@@ -302,7 +302,7 @@ resource "null_resource" "hostname_update" {
       "wget https://github.com/r3dact3d/AAP-2.5-Containerized-on-AWS/raw/refs/heads/ansible/post_data/ansible-automation-platform-containerized-setup-2.5-6.tar.gz",
       "file ansible-automation-platform-containerized-setup-2.5-6.tar.gz",
       "tar xfvz ansible-automation-platform-containerized-setup-2.5-6.tar.gz",
-      "sudo mkdir -p /aap-nfs,
+      "sudo mkdir -p /aap-nfs",
       "sudo chown -R ec2-user:ec2-user /aap-nfs",
       "sudo chmod -R 755 /aap-nfs",
       "sleep 45",
