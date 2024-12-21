@@ -302,9 +302,9 @@ resource "null_resource" "hostname_update" {
       "wget https://github.com/r3dact3d/AAP-2.5-Containerized-on-AWS/raw/refs/heads/ansible/post_data/ansible-automation-platform-containerized-setup-2.5-6.tar.gz",
       "file ansible-automation-platform-containerized-setup-2.5-6.tar.gz",
       "tar xfvz ansible-automation-platform-containerized-setup-2.5-6.tar.gz",
-      "sudo mkdir -p /home/ec2-user/aap/hub/data/tmp",
-      "sudo chown -R ec2-user:ec2-user /home/ec2-user/aap/hub/data",
-      "sudo chmod -R 755 /home/ec2-user/aap/hub/data",
+      "sudo mkdir -p /aap-nfs,
+      "sudo chown -R ec2-user:ec2-user /aap-nfs",
+      "sudo chmod -R 755 /aap-nfs",
       "sleep 45",
 
       # Configure and run the playbook
@@ -315,9 +315,8 @@ resource "null_resource" "hostname_update" {
       "sed -i 's/aap.example.org/${aws_instance.aap_instance.public_dns}/g' inventory-growth",
       "sed -i 's/<your RHN username>/rhn_user/g' inventory-growth",
       "sed -i 's/<your RHN password>/rhn_pass/g' inventory-growth",
-      "echo 'hub_shared_data_path=<path_to_nfs_share>' >> inventory-growth",
-      "sed -i 's/<path_to_nfs_share>/${aws_efs_file_system.efs.dns_name}/g' inventory-growth",
-      "nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & 2>/dev/null"
+      "sed -i 's/<path_to_nfs_share>/${aws_efs_file_system.efs.dns_name}/g' inventory-growth"
+      #"nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & 2>/dev/null"
     ]
     
     
