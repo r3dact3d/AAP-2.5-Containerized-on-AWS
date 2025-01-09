@@ -69,7 +69,7 @@ eda_pg_password=<set your own>
 
 #configure shared storage for automation hub
 #ensuring your network file system (NFS) share has read, write, and execute permissions
-hub_shared_data_path=<path_to_nfs_share>:/aap-nfs
+hub_shared_data_path=<path_to_nfs_share>:/
 hub_shared_data_mount_opts='nfsvers=4.1,hard,noresvport,rsize=1048576,wsize=1048576,timeo=600,retrans=2,_netdev,nofail'
 
 #define the location of your automation controller license file
