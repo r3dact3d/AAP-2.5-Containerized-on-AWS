@@ -265,12 +265,7 @@ resource "null_resource" "hostname_update" {
       "sudo rhc connect --activation-key=<activation_key_name> --organization=<organization_ID>",
       
       # Ensure stuff is installed
-      "sudo dnf install -y ansible-core wget git-core rsync vim amazon-efs-utils",
-
-      # Setup EFS Mountpoint
-      "sudo mkdir -p /mnt/efs",
-      "sudo mount -t efs -o tls ${aws_efs_file_system.efs.id}:/ /mnt/efs",
-      "sudo chmod 777 /mnt/efs",
+      "sudo dnf install -y ansible-core wget git-core rsync vim",
 
       # Set hostname
       "sudo hostnamectl set-hostname ${aws_instance.aap_instance.public_dns}",
