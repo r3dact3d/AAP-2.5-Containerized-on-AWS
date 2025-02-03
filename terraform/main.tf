@@ -256,34 +256,6 @@ resource "aws_efs_mount_target" "efs_mount_target_a" {
   security_groups = [aws_security_group.efs_security_group.id]
 }
 
-#resource "aws_efs_mount_target" "efs_mount_target_b" {
-#  file_system_id  = aws_efs_file_system.efs.id
-#  subnet_id       = aws_subnet.aap_subnet_2.id # Assuming a second subnet exists
-#  security_groups = [aws_security_group.efs_security_group.id]
-#}
-
-## Optional: Add EFS to an EC2 Instance as a Mount Point
-#resource "null_resource" "mount_efs" {
-#  depends_on = [aws_instance.aap_instance, aws_efs_file_system.efs]
-#
-#  provisioner "remote-exec" {
-#    inline = [
-#      "sudo yum install -y amazon-efs-utils",
-#      "sudo mkdir -p /mnt/efs",
-#      "sudo mount -t efs -o tls ${aws_efs_file_system.efs.id}:/ /mnt/efs",
-#      "sudo chmod 777 /mnt/efs" # Adjust permissions as needed
-#    ]
-
-#    connection {
-#      type        = "ssh"
-#      host        = aws_instance.aap_instance.public_ip
-#      user        = "ec2-user"
-#      private_key = tls_private_key.cloud_key.private_key_pem
-#    }
-#  }
-#}
-
-
 resource "null_resource" "hostname_update" {
   depends_on = [aws_instance.aap_instance]
 
@@ -293,29 +265,31 @@ resource "null_resource" "hostname_update" {
       "sudo rhc connect --activation-key=<activation_key_name> --organization=<organization_ID>",
       
       # Ensure stuff is installed
-      "sudo dnf install -y ansible-core wget git-core rsync vim",
+      "sudo dnf install -y ansible-core wget git-core rsync vim amazon-efs-utils",
+
+      # Setup EFS Mountpoint
+      "sudo mkdir -p /mnt/efs",
+      "sudo mount -t efs -o tls ${aws_efs_file_system.efs.id}:/ /mnt/efs",
+      "sudo chmod 777 /mnt/efs",
 
       # Set hostname
       "sudo hostnamectl set-hostname ${aws_instance.aap_instance.public_dns}",
 
       # Download and extract the setup file
-      "wget https://github.com/r3dact3d/AAP-2.5-Containerized-on-AWS/raw/refs/heads/ansible/post_data/ansible-automation-platform-containerized-setup-2.5-6.tar.gz",
+      "wget https://github.com/r3dact3d/AAP-2.5-Containerized-on-AWS/raw/refs/heads/ansible/post_data/ansible-automation-platform-containerized-setup-2.5-9.tar.gz",
       "file ansible-automation-platform-containerized-setup-2.5-6.tar.gz",
       "tar xfvz ansible-automation-platform-containerized-setup-2.5-6.tar.gz",
-      "sudo mkdir -p /aap-nfs",
-      "sudo chown -R ec2-user:ec2-user /aap-nfs",
-      "sudo chmod -R 755 /aap-nfs",
       "sleep 45",
 
       # Configure and run the playbook
-      "cd ansible-automation-platform-containerized-setup-2.5-6",
+      "cd ansible-automation-platform-containerized-setup-2.5-9",
       "wget -O inventory-growth https://raw.githubusercontent.com/r3dact3d/AAP-2.5-Containerized-on-AWS/refs/heads/ansible/post_data/inventory-growth-custom",
       "sleep 10",
       "sed -i 's/<set your own>/new-install-password/g' inventory-growth",
       "sed -i 's/aap.example.org/${aws_instance.aap_instance.public_dns}/g' inventory-growth",
       "sed -i 's/<your RHN username>/rhn_user/g' inventory-growth",
       "sed -i 's/<your RHN password>/rhn_pass/g' inventory-growth",
-      "sed -i 's/<path_to_nfs_share>/${aws_efs_file_system.efs.dns_name}/g' inventory-growth"
+      #"sed -i 's/<path_to_nfs_share>/${aws_efs_file_system.efs.dns_name}/g' inventory-growth"
       #"nohup ansible-playbook -i inventory-growth ansible.containerized_installer.install -e ansible_connection=local & 2>/dev/null"
     ]
     
