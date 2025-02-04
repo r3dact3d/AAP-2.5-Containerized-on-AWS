@@ -18,7 +18,7 @@ This project leverages Terraform to provision infrastructure and integrates GitH
 
 ### Architecture Diagram
 
-![Infrastructure Design](design-infra.png)
+![Infrastructure Design](images/design-infra.png)
 
    > **Note:**  
    - The ec2 details are out of date, see `terraform` code in `main.tf`.  
